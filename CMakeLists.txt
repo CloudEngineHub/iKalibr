@@ -806,6 +806,15 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ufomap-install/lib/
         FILES_MATCHING PATTERN "*.so*"
 )
 
+## Install config files
+install(DIRECTORY config/
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
+        FILES_MATCHING
+        PATTERN "*.yaml"
+        PATTERN "*.yml"
+        PATTERN "*.json"
+)
+
 #############
 ## Testing ##
 #############
