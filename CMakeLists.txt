@@ -709,31 +709,102 @@ target_link_libraries(
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-# install(TARGETS ${PROJECT_NAME}_node
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(TARGETS
+        ${PROJECT_NAME}_prog
+        ${PROJECT_NAME}_learn
+        ${PROJECT_NAME}_lidar_map_viewer
+        ${PROJECT_NAME}_data_format_transformer
+        ${PROJECT_NAME}_bag_merge
+        ${PROJECT_NAME}_bag_topic_downsample
+        ${PROJECT_NAME}_imgs_to_bag
+        ${PROJECT_NAME}_imu_intri_calib
+        ${PROJECT_NAME}_raw_inertial_to_bag
+        RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+## Set RPATH for executables to find installed libraries
+set_target_properties(${PROJECT_NAME}_prog PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}")
+set_target_properties(${PROJECT_NAME}_learn PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}")
+set_target_properties(${PROJECT_NAME}_lidar_map_viewer PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}")
+set_target_properties(${PROJECT_NAME}_data_format_transformer PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}")
+set_target_properties(${PROJECT_NAME}_bag_merge PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}")
+set_target_properties(${PROJECT_NAME}_bag_topic_downsample PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}")
+set_target_properties(${PROJECT_NAME}_imgs_to_bag PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}")
+set_target_properties(${PROJECT_NAME}_imu_intri_calib PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}")
+set_target_properties(${PROJECT_NAME}_raw_inertial_to_bag PROPERTIES
+        INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}")
 
 ## Mark libraries for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
-# install(TARGETS ${PROJECT_NAME}
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-# )
+install(TARGETS
+        ${PROJECT_NAME}_util
+        ${PROJECT_NAME}_sensor
+        ${PROJECT_NAME}_config
+        ${PROJECT_NAME}_factor
+        ${PROJECT_NAME}_viewer
+        ${PROJECT_NAME}_core
+        ${PROJECT_NAME}_calib
+        ${PROJECT_NAME}_solver
+        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+)
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+install(DIRECTORY include/
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+        FILES_MATCHING PATTERN "*.h"
+        PATTERN "*.hpp"
+        PATTERN ".svn" EXCLUDE
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+install(DIRECTORY launch/
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+        FILES_MATCHING PATTERN "*.launch"
+)
+
+## Mark Python scripts for installation
+install(DIRECTORY script/
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/script
+        FILES_MATCHING PATTERN "*.py"
+        PATTERN "__pycache__" EXCLUDE
+)
+
+install(DIRECTORY model/
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/model
+        FILES_MATCHING PATTERN "*.obj"
+)
+
+## Install third-party libraries
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ctraj/thirdparty/tiny-viewer-install/lib/
+        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        FILES_MATCHING PATTERN "*.so*"
+)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ctraj-install/lib/
+        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        FILES_MATCHING PATTERN "*.so*"
+)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/veta-install/lib/
+        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        FILES_MATCHING PATTERN "*.so*"
+)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/opengv-install/lib/
+        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        FILES_MATCHING PATTERN "*.so*"
+)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ufomap-install/lib/
+        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        FILES_MATCHING PATTERN "*.so*"
+)
 
 #############
 ## Testing ##
