@@ -53,51 +53,23 @@ This command will start the container with your custom name (`your_container_nam
 + `--name`: Assigns a name to the running container.
 + `ulong2/ie_kalibr_image:latest`: Your Docker image.
 
-### 4. Enter the Container and Pull the Latest Code
+### 4. Enter the Container and Use the iKalibr
 
-Inside the container, navigate to the `/home/iKalibr/src/ikalibr` directory:
+Inside the container, navigate to the `/home/iKalibr/install` directory:
 
 ```bash
-cd /home/iKalibr/src/ikalibr
+cd /home/iKalibr/install
 ```
 
-Then, pull the latest version of the `iKalibr` using `Git`:
+Then source the `setup.py`:
 
 ```
-git pull
+source setup.py
 ```
 
-### 5. Build Third-Party Dependencies
-
-Once the latest code is pulled, run the following commands to build third-party dependencies:
+Then you can use the binary programs of `iKalibr`:
 
 ```
-chmod +x build_thirdparty.sh
-./build_thirdparty.sh
+roslaunch ikalibr ikalibr-learn.launch
 ```
 
-### 6. Compile the Project
-
-Next, you need to compile the project. First, navigate to the parent directory:
-
-```
-cd ../..
-```
-
-Then, run the following command to generate messages:
-
-```
-catkin_make ikalibr_generate_messages
-```
-
-Finally, run the command below to compile the entire project:
-
-```
-catkin_make -j8 -DUSE_CMAKE_UNITY_BUILD=ON
-```
-
-Note: The `-j8` option uses 8 threads for parallel compilation. You can adjust this depending on your machine's configuration.
-
-### 7. Done
-
-Once the compilation is complete, the `iKalibr` project is ready to use.
